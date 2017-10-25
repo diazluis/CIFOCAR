@@ -20,5 +20,5 @@
 	$fc = new FrontController();
 	
 	//ejecuta el método principal del controlador frontal
-	$fc->main();
+	$fc->main(); 
 ?>
