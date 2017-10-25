@@ -5,7 +5,7 @@
 		<base href="<?php echo Config::get()->url_base;?>" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="UTF-8">
-		<title>Portada</title>
+		<title>Portada CIFOCAR</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo Config::get()->css;?>" />
 	</head>
 	
