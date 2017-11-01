@@ -1,18 +1,22 @@
 <?php
-	class Template{	
-		
-		//PONE EL HEADER DE LA PAGINA
-		public static function header(){	?>
+class Template{
+    
+    //PONE EL HEADER DE LA PAGINA
+    public static function header(){	?>
+			
 			<header>
-				<figure>
-					<a href="index.php">
-						<img alt="Robs Micro Framework logo" src="images/logos/logo.png" />
-					</a>
-				</figure>
+			 			
 				<hgroup>
-					<h1>RMF - RobS Micro Framework</h1>
-					<h2>Para el desarrollo de aplicaciones web</h2>
+					<h1>Cifocar</h1>
+					<h3>Aplicación de gestión de compra venta de vehículos</h3>
 				</hgroup>
+				<!--<figure>
+					 <a href="index.php">
+						<img alt="The Guitar Data Base" src="/guitarras/images/guitar-logo.png" />
+					</a> 
+				     
+				</figure>-->
+			   
 			</header>
 		<?php }
 		
@@ -20,8 +24,8 @@
 		//PONE EL FORMULARIO DE LOGIN
 		public static function login(){?>
 			<form method="post" id="login" autocomplete="off">
-				<input type="text" placeholder="usuario" name="user" required="required" />
-				<input type="password" placeholder="clave" name="password" required="required"/>
+				<label>User:</label><input type="text" name="user" required="required" />
+				<label>Password:</label><input type="password" name="password" required="required"/>
 				<input type="submit" name="login" value="Login" />
 			</form>
 		<?php }
@@ -31,15 +35,19 @@
 		public static function logout($usuario){	?>
 			<div id="logout">
 				<span>
-					Hola 
 					<a href="index.php?controlador=Usuario&operacion=modificacion" title="modificar datos">
-						<?php echo $usuario->nombre;?>
-					</a><?php if($usuario->admin) echo ', eres administrador';?>
+						<?php echo $usuario->nombre;?></a>
+					<span class="mini">
+						<?php echo ' ('.$usuario->email.')';?>
+					</span>
+					<?php if($usuario->admin) echo ', eres administrador';?>
 				</span>
 								
 				<form method="post">
 					<input type="submit" name="logout" value="Logout" />
 				</form>
+				
+				<div class="clear"></div>
 			</div>
 		<?php }
 		
@@ -50,15 +58,19 @@
 				<ul class="menu">
 					<li><a href="index.php">Inicio</a></li>
 					<li><a href="index.php?controlador=Usuario&operacion=registro">Registro</a></li>
-				</ul>
+					<li><a href="index.php?controlador=Marca&operacion=listar">Listar Marcas</a></li>
+					
+					
+				
 				<?php 
-				//pone el menÃº del administrador
+				//pone el menú del administrador
 				if($usuario && $usuario->admin){	?>
-				<ul class="menu">
-					<li><a href="#">ADMIN</a></li>
-				</ul>
+					<li><a href="index.php?controlador=Marca&operacion=registro">Nueva Marca</a></li>
+					<!-- <li><a href="index.php?controlador=Marca&operacion=nueva">Nueva Guitarra</a></li> -->
 							
 				<?php }	?>
+				<li><a href="index.php?controlador=Vehiculo&operacion=listar">Listar Vehículos</a></li>
+					</ul>
 			</nav>
 		<?php }
 		
@@ -67,14 +79,11 @@
 			<footer>
 				<p>
 					<a href="http://recursos.robertsallent.com/mvc/robs_micro_fw_1.0.zip">
-						RobS micro Framework</a> - solo para fines docentes
+						Aplicación concesionarios Cifocar</a> - solo para fines docentes
 				</p>
 				<p> 
-					<a rel="author" href="http://www.robertsallent.com">Robert Sallent</a>
-					<a href="http://www.twitter.com/robertsallent">
-         				<img class="logo" alt="twitter logo" src="images/logos/twitter.png" />
-					</a> -  
-					<a href="https://www.facebook.com/cifovalles">CIFO del VallÃ¨s'16</a>. 
+					Luis Díaz - 					 -  
+					<a href="https://www.facebook.com/cifovalles">CIFO del Vallès'17</a>. 
          		</p>
 			</footer>
 		<?php }
