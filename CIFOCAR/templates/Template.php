@@ -8,7 +8,7 @@ class Template{
 			 			
 				<hgroup>
 					<h1>Cifocar</h1>
-					<h3>AplicaciÛn de gestiÛn de compra venta de vehÌculos</h3>
+					<h3>Aplicaci√≥n de gesti√≥n de compra venta de veh√≠culos</h3>
 				</hgroup>
 				<!--<figure>
 					 <a href="index.php">
@@ -57,20 +57,31 @@ class Template{
 			<nav>
 				<ul class="menu">
 					<li><a href="index.php">Inicio</a></li>
+				<?php 
+				//pone el menÔøΩ del administrador
+    				if($usuario && $usuario->admin){	?>	
+        				<li><a href="index.php?controlador=Usuario&operacion=listar">Listar Usuarios</a></li>
+        				
+				<?php }	?>
 					<li><a href="index.php?controlador=Usuario&operacion=registro">Registro</a></li>
 					<li><a href="index.php?controlador=Marca&operacion=listar">Listar Marcas</a></li>
 					
 					
 				
 				<?php 
-				//pone el men˙ del administrador
+				//pone el menÔøΩ del administrador
 				if($usuario && $usuario->admin){	?>
 					<li><a href="index.php?controlador=Marca&operacion=registro">Nueva Marca</a></li>
-					<!-- <li><a href="index.php?controlador=Marca&operacion=nueva">Nueva Guitarra</a></li> -->
-							
+					<?php }	?>		
+				
+    				<li><a href="index.php?controlador=Vehiculo&operacion=listar">Listar Veh√≠culos</a></li>
+    			<?php 
+				//pone el menÔøΩ del administrador
+				if($usuario && $usuario->admin){	?>	
+    				<li><a href="index.php?controlador=Vehiculo&operacion=registro">Nuevo Veh√≠culo</a></li>
+    				
 				<?php }	?>
-				<li><a href="index.php?controlador=Vehiculo&operacion=listar">Listar VehÌculos</a></li>
-					</ul>
+				</ul>
 			</nav>
 		<?php }
 		
@@ -79,11 +90,11 @@ class Template{
 			<footer>
 				<p>
 					<a href="http://recursos.robertsallent.com/mvc/robs_micro_fw_1.0.zip">
-						AplicaciÛn concesionarios Cifocar</a> - solo para fines docentes
+						Aplicaci√≥n concesionarios Cifocar</a> - solo para fines docentes
 				</p>
 				<p> 
-					Luis DÌaz - 					 -  
-					<a href="https://www.facebook.com/cifovalles">CIFO del VallËs'17</a>. 
+					Luis D√≠az - 					 -  
+					<a href="https://www.facebook.com/cifovalles">CIFO del Vall√©s'17</a>. 
          		</p>
 			</footer>
 		<?php }

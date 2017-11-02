@@ -6,8 +6,7 @@
         //METODOS
         //guardar marca
         public function guardar(){
-            $user_table = Config::get()->db_user_table;
-            $consulta = "INSERT INTO $user_table(marca)
+            $consulta = "INSERT INTO marcas(marca)
 			VALUES ('$this->marca');";
             
             return Database::get()->query($consulta);
@@ -64,7 +63,7 @@
             //retornar nÃºmero de filas afectadas
             return Database::get()->affected_rows;
         }  
-        //método que me recupera el total de registros (incluso con filtros)
+        //mï¿½todo que me recupera el total de registros (incluso con filtros)
         public static function getTotal($t='', $c='marca'){
             $consulta = "SELECT * FROM marcas
                          WHERE $c LIKE '%$t%'";

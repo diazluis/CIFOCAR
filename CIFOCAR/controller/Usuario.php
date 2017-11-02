@@ -166,6 +166,67 @@
 				$this->load_view('view/exito.php', $datos);
 			}
 		}
+		//PROCEDIMIENTO PARA LISTAR LAS USUARIOS
+		public function listar($pagina){
+		    $this->load('model/UsuarioModel.php');
+		    
+		    //si me piden APLICAR un filtro
+		    if(!empty($_POST['filtrar'])){
+		        //recupera el filtro a aplicar
+		        $f = new stdClass(); //filtro
+		        $f->texto = htmlspecialchars($_POST['texto']);
+		        $f->campo = htmlspecialchars($_POST['campo']);
+		        $f->campoOrden = htmlspecialchars($_POST['campoOrden']);
+		        $f->sentidoOrden = htmlspecialchars($_POST['sentidoOrden']);
+		        
+		        //guarda el filtro en un var de sesi�n
+		        $_SESSION['filtroUsuarios'] = serialize($f);
+		    }
+		    
+		    //si me piden QUITAR un filtro
+		    if(!empty($_POST['quitarFiltro']))
+		        unset($_SESSION['filtroUsuarios']);
+		        
+		        
+		        //comprobar si hay filtro
+		        $filtro = empty($_SESSION['filtroUsuarios'])? false : unserialize($_SESSION['filtroUsuarios']);
+		        
+		        //para la paginaci�n
+		        $num = 5; //numero de resultados por p�gina
+		        $pagina = abs(intval($pagina)); //para evitar cosas raras por url
+		        $pagina = empty($pagina)? 1 : $pagina; //p�gina a mostrar
+		        $offset = $num*($pagina-1); //offset
+		        
+		        //si no hay que filtrar los resultados...
+		        if(!$filtro){
+		            //recupera todas las usuarios
+		            $usuarios = UsuarioModel::getUsuario($num, $offset);
+		            //total de registros (para paginaci�n)
+		            $totalRegistros = UsuarioModel::getTotal();
+		            
+		        }else{
+		            //recupera las Usuarios con el filtro aplicado
+		            $usuarios = UsuarioModel::getUsuarios($num, $offset, $filtro->texto, $filtro->campo, $filtro->campoOrden, $filtro->sentidoOrden);
+		            //total de registros (para paginaci�n)
+		            $totalRegistros = UsuarioModel::getTotal($filtro->texto, $filtro->campo);
+		        }
+		        
+		        //cargar la vista del listado
+		        $datos = array();
+		        $datos['usuario'] = Login::getUsuario();
+		        $datos['usuarios'] = $usuarios;
+		        $datos['filtro'] = $filtro;
+		        $datos['paginaActual'] = $pagina;
+		        $datos['paginas'] = ceil($totalRegistros/$num); //total de p�ginas (para paginaci�n)
+		        $datos['totalRegistros'] = $totalRegistros;
+		        $datos['regPorPagina'] = $num;
+		        
+		        if(Login::isAdmin())
+		            $this->load_view('view/usuarios/listaUsuario.php', $datos);
+		            else
+		                $this->load_view('view/usuarios/listaUsuario.php', $datos);
+		}
+		
 		
 	}
 ?>

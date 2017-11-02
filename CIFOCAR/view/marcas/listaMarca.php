@@ -26,18 +26,7 @@
    <form method="post" class="filtro" action="index.php?controlador=Marca&operacion=getMarcas&parametro=1">
        <label>Filtro:</label>
         <input type="text" name="texto" placeholder="buscar..."/>
-        <select name="campo">
-                    <option value="marca">marca</option>
-                </select>
-                <label>Orden:</label>
-                <select name="campoOrden">
-                    <option value="marca">marca</option>
-                </select>
-                <select name="sentidoOrden">
-                    <option value="ASC">ascendente</option>
-                    <option value="DESC">descendente</option>
-                </select>
-                <input type="submit" name="filtrar" value="Filtrar"/>
+        <input type="submit" name="filtrar" value="Filtrar"/>
             </form>
             <?php }else{ ?>
                 <form method="post" class="filtro" action="index.php?controlador=Marca&operacion=getMarcas&parametro=1">

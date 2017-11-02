@@ -59,6 +59,20 @@
 			$resultado->free();
 			
 			return $us;
-		}	
+		}
+		
+		//método que me recupera el total de registros (incluso con filtros)
+		public static function getTotal($t='', $c='marca'){
+		    $consulta = "SELECT * FROM usuarios
+                         WHERE $c LIKE '%$t%'";
+		    
+		    
+		    $conexion = Database::get();
+		    $resultados = $conexion->query($consulta);
+		    $total = $resultados->num_rows;
+		    $resultados->free();
+		    return $total;
+		}
+		
 	}
 ?>

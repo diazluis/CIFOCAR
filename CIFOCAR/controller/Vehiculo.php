@@ -13,7 +13,7 @@
 				$datos = array();
 				$datos['usuario'] = Login::getUsuario();
 				$datos['max_image_size'] = Config::get()->user_image_max_size;
-				$this->load_view('view/vehiculos/nuevaVehiculo.php', $datos);
+				$this->load_view('view/vehiculos/nuevoVehiculo.php', $datos);
 			
 			//si llegan los datos por POST
 			}else{
@@ -35,6 +35,7 @@
 				$u->estado = $conexion->real_escape_string($_POST['estado']);
 				$u->any_matriculacion = $conexion->real_escape_string($_POST['any_matriculacion']);
 				$u->detalles = $conexion->real_escape_string($_POST['detalles']);	
+				$u->imagen = Config::get()->default_user_image;
 				$u->vendedor = $conexion->real_escape_string($_POST['vendedor']);
 				$u->marca = $conexion->real_escape_string($_POST['marca']);
 				
@@ -65,7 +66,7 @@
 		        $f->campoOrden = htmlspecialchars($_POST['campoOrden']);
 		        $f->sentidoOrden = htmlspecialchars($_POST['sentidoOrden']);
 		        
-		        //guarda el filtro en un var de sesión
+		        //guarda el filtro en un var de sesiï¿½n
 		        $_SESSION['filtroVehiculos'] = serialize($f);
 		    }
 		    
@@ -77,22 +78,23 @@
 		        //comprobar si hay filtro
 		        $filtro = empty($_SESSION['filtroVehiculos'])? false : unserialize($_SESSION['filtroVehiculos']);
 		        
-		        //para la paginación
-		        $num = 5; //numero de resultados por página
+		        //para la paginaciï¿½n
+		        $num = 5; //numero de resultados por pï¿½gina
 		        $pagina = abs(intval($pagina)); //para evitar cosas raras por url
-		        $pagina = empty($pagina)? 1 : $pagina; //página a mostrar
+		        $pagina = empty($pagina)? 1 : $pagina; //pï¿½gina a mostrar
 		        $offset = $num*($pagina-1); //offset
 		        
 		        //si no hay que filtrar los resultados...
 		        if(!$filtro){
 		            //recupera todas las vehiculos
-		            $vehiculos = VehiculoModel::getVehiculo($num, $offset);
-		            //total de registros (para paginación)
+		            $vehiculos = VehiculoModel::getVehiculos($num, $offset);
+		            //total de registros (para paginaciï¿½n)
 		            $totalRegistros = VehiculoModel::getTotal();
+		            
 		        }else{
 		            //recupera las Vehiculos con el filtro aplicado
 		            $vehiculos = VehiculoModel::getVehiculos($num, $offset, $filtro->texto, $filtro->campo, $filtro->campoOrden, $filtro->sentidoOrden);
-		            //total de registros (para paginación)
+		            //total de registros (para paginaciï¿½n)
 		            $totalRegistros = VehiculoModel::getTotal($filtro->texto, $filtro->campo);
 		        }
 		        
@@ -102,7 +104,7 @@
 		        $datos['vehiculos'] = $vehiculos;
 		        $datos['filtro'] = $filtro;
 		        $datos['paginaActual'] = $pagina;
-		        $datos['paginas'] = ceil($totalRegistros/$num); //total de páginas (para paginación)
+		        $datos['paginas'] = ceil($totalRegistros/$num); //total de pï¿½ginas (para paginaciï¿½n)
 		        $datos['totalRegistros'] = $totalRegistros;
 		        $datos['regPorPagina'] = $num;
 		        

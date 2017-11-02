@@ -52,7 +52,7 @@
 		        $f->campoOrden = htmlspecialchars($_POST['campoOrden']);
 		        $f->sentidoOrden = htmlspecialchars($_POST['sentidoOrden']);
 		        
-		        //guarda el filtro en un var de sesiÛn
+		        //guarda el filtro en un var de sesiÔøΩn
 		        $_SESSION['filtroMarcas'] = serialize($f);
 		    }
 		    
@@ -64,22 +64,22 @@
 		        //comprobar si hay filtro
 		        $filtro = empty($_SESSION['filtroMarcas'])? false : unserialize($_SESSION['filtroMarcas']);
 		        
-		        //para la paginaciÛn
-		        $num = 5; //numero de resultados por p·gina
+		        //para la paginaciÔøΩn
+		        $num = 5; //numero de resultados por pÔøΩgina
 		        $pagina = abs(intval($pagina)); //para evitar cosas raras por url
-		        $pagina = empty($pagina)? 1 : $pagina; //p·gina a mostrar
+		        $pagina = empty($pagina)? 1 : $pagina; //pÔøΩgina a mostrar
 		        $offset = $num*($pagina-1); //offset
 		        
 		        //si no hay que filtrar los resultados...
 		        if(!$filtro){
 		            //recupera todas las marcas
 		            $marcas = MarcaModel::getMarcas($num, $offset);
-		            //total de registros (para paginaciÛn)
+		            //total de registros (para paginaciÔøΩn)
 		            $totalRegistros = MarcaModel::getTotal();
 		        }else{
 		            //recupera las Marcas con el filtro aplicado
 		            $marcas = MarcaModel::getMarcas($num, $offset, $filtro->texto, $filtro->campo, $filtro->campoOrden, $filtro->sentidoOrden);
-		            //total de registros (para paginaciÛn)
+		            //total de registros (para paginaciÔøΩn)
 		            $totalRegistros = MarcaModel::getTotal($filtro->texto, $filtro->campo);
 		        }
 		        
@@ -89,7 +89,7 @@
 		        $datos['marcas'] = $marcas;
 		        $datos['filtro'] = $filtro;
 		        $datos['paginaActual'] = $pagina;
-		        $datos['paginas'] = ceil($totalRegistros/$num); //total de p·ginas (para paginaciÛn)
+		        $datos['paginas'] = ceil($totalRegistros/$num); //total de pÔøΩginas (para paginaciÔøΩn)
 		        $datos['totalRegistros'] = $totalRegistros;
 		        $datos['regPorPagina'] = $num;
 		        
@@ -102,22 +102,22 @@
 		//PROCEDIMIENTO PARA MODIFICAR UN Marca
 		public function modificacion(){
 			//si no hay marca identificado... error
-			if(!Login::getMarca())
-				throw new Exception('Debes estar identificado para poder modificar tus datos');
+			if(!Login::getUsuario())
+				throw new Exception('Debes estar identificado para poder modificar una marca');
 				
 			//si no llegan los datos a modificar
 			if(empty($_POST['modificar'])){
 				
 				//mostramos la vista del formulario
 				$datos = array();
-				$datos[''] = Login::getMarca();
+				$datos[''] = Login::getMarcas();
 				$datos['max_image_size'] = Config::get()->user_image_max_size;
 				$this->load_view('view/s/modificacion.php', $datos);
 					
 				//si llegan los datos por POST
 			}else{
 				//recuperar los datos actuales del Marca
-				$u = Login::getMarca();
+				$u = Login::getMarcas();
 				$conexion = Database::get();
 				
 				//comprueba que el marca se valide correctamente
@@ -165,7 +165,7 @@
 					
 				//mostrar la vista de √©xito
 				$datos = array();
-				$datos['marca'] = Login::getMarca();
+				$datos['marca'] = Login::getMarcas();
 				$datos['mensaje'] = 'Modificaci√≥n OK';
 				$this->load_view('view/exito.php', $datos);
 			}
@@ -176,7 +176,7 @@
 		//solicita confirmaci√≥n
 		public function baja(){		
 			//recuperar marca
-			$u = Login::getMarca();
+			$u = Login::getMarcas();
 			
 			//asegurarse que el marca est√° identificado
 			if(!$u) throw new Exception('Debes estar identificado para poder darte de baja');

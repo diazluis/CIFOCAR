@@ -5,12 +5,12 @@
 		//-----------------------------------------------------------------------------
 		//EDITAR ESTOS PARAMETROS PARA CAMBIAR LA CONFIGURACION
 		//URL BASE (opcional): ruta donde se encuentre el proyecto, desde el DOCUMENT_ROOT
-		private $url_base = '';  //ejemplo: '/micarpeta/miproyecto/';
+		private $url_base = '/CIFOCAR/CIFOCAR/';  //ejemplo: '/micarpeta/miproyecto/';
 		
 		//PARA LA BDD		
 		private $db_host = 'localhost'; 	//ubicación de la BDD
 		private $db_user = 'root';			//usuario
-		private $db_pass = '';			//password
+		private $db_pass = 'usuarim';			//password
 		private $db_name = 'cifocar';		//nombre de la BDD
 		private $db_charset = 'utf8';	//codificación a utilizar
 		private $db_user_table = 'usuarios'; //nombre para la tabla de usuarios
