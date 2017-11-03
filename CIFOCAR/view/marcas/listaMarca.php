@@ -23,13 +23,13 @@
    <!--  <p>Mostrando del <?php echo ($paginaActual-1)*$regPorPagina+1;?> al <?php echo ($paginaActual)*$regPorPagina;?>.</p> -->
             
 	<?php if(!$filtro){?>
-   <form method="post" class="filtro" action="index.php?controlador=Marca&operacion=getMarcas&parametro=1">
+   <form method="post" class="filtro" action="index.php?controlador=Marca&operacion=listar&parametro=1">
        <label>Filtro:</label>
         <input type="text" name="texto" placeholder="buscar..."/>
         <input type="submit" name="filtrar" value="Filtrar"/>
             </form>
             <?php }else{ ?>
-                <form method="post" class="filtro" action="index.php?controlador=Marca&operacion=getMarcas&parametro=1">
+                <form method="post" class="filtro" action="index.php?controlador=Marca&operacion=listar&parametro=1">
                     <label>Quitar filtro</label>
                     <input type="submit" name="quitarFiltro" value="Quitar" />
                 </form>
@@ -38,8 +38,7 @@
             <table>
                 <tr>
                     <th>Marca</th>
-                    <th>Acciones</th>
-                </tr>
+               </tr>
                 <?php
                 foreach($marcas as $marca){
                     echo "<tr>";
@@ -53,21 +52,21 @@
                 <?php
                     //poner enlace a la página anterior
                     if($paginaActual>1){
-                        echo "<li><a href='index.php?controlador=Marca&operacion=getMarcas&parametro=1'>Primera</a></li>";
+                        echo "<li><a href='index.php?controlador=Marca&operacion=listar&parametro=1'>Primera</a></li>";
                     }
                 
                     //poner enlace a la página anterior
                     if($paginaActual>2){
-                        echo "<li><a href='index.php?controlador=Marca&operacion=getMarcas&parametro=".($paginaActual-1)."'>Anterior</a></li>";
+                        echo "<li><a href='index.php?controlador=Marca&operacion=listar&parametro=".($paginaActual-1)."'>Anterior</a></li>";
                     }
                     //poner enlace a la página siguiente
                     if($paginaActual<$paginas-1){
-                        echo "<li><a href='index.php?controlador=Marca&operacion=getMarcas&parametro=".($paginaActual+1)."'>Siguiente</a></li>";
+                        echo "<li><a href='index.php?controlador=Marca&operacion=listar&parametro=".($paginaActual+1)."'>Siguiente</a></li>";
                     }
                     
                     //Poner enlace a la última página
                     if($paginas>1 && $paginaActual<$paginas){
-                        echo "<li><a href='index.php?controlador=Marca&operacion=getMarcas&parametro=$paginas'>Ultima</a></li>";
+                        echo "<li><a href='index.php?controlador=Marca&operacion=listar&parametro=$paginas'>Última</a></li>";
                     }
                 ?>
             </ul>

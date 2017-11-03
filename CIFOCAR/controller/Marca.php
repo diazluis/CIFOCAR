@@ -48,9 +48,7 @@
 		        //recupera el filtro a aplicar
 		        $f = new stdClass(); //filtro
 		        $f->texto = htmlspecialchars($_POST['texto']);
-		        $f->campo = htmlspecialchars($_POST['campo']);
-		        $f->campoOrden = htmlspecialchars($_POST['campoOrden']);
-		        $f->sentidoOrden = htmlspecialchars($_POST['sentidoOrden']);
+		        
 		        
 		        //guarda el filtro en un var de sesi�n
 		        $_SESSION['filtroMarcas'] = serialize($f);
@@ -78,9 +76,9 @@
 		            $totalRegistros = MarcaModel::getTotal();
 		        }else{
 		            //recupera las Marcas con el filtro aplicado
-		            $marcas = MarcaModel::getMarcas($num, $offset, $filtro->texto, $filtro->campo, $filtro->campoOrden, $filtro->sentidoOrden);
+		            $marcas = MarcaModel::getMarcas($num, $offset, $filtro->texto);
 		            //total de registros (para paginaci�n)
-		            $totalRegistros = MarcaModel::getTotal($filtro->texto, $filtro->campo);
+		            $totalRegistros = MarcaModel::getTotal($filtro->texto);
 		        }
 		        
 		        //cargar la vista del listado
