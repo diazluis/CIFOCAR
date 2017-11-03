@@ -24,7 +24,7 @@
 				<input type="text" name="marca" required="required" value="<?php echo $marca->marca;?>" /><br/>
 				
 				<br>
-				<input type="submit" name="modificar" value="MODIFICAR"/><br/>
+				<input type="submit" name="actualizar" value="MODIFICAR"/><br/>
 			</form>
 			
 			<h3>Eliminar marca</h3>
