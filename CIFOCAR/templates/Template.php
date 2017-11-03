@@ -7,16 +7,9 @@ class Template{
 			<header>
 			 			
 				<hgroup>
-					<h1>Cifocar</h1>
-					<h3>Aplicación de gestión de compra venta de vehículos</h3>
+										
 				</hgroup>
-				<!--<figure>
-					 <a href="index.php">
-						<img alt="The Guitar Data Base" src="/guitarras/images/guitar-logo.png" />
-					</a> 
-				     
-				</figure>-->
-			   
+							   
 			</header>
 		<?php }
 		

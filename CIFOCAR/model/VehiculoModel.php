@@ -1,14 +1,15 @@
 <?php
 	class VehiculoModel{
 		//PROPIEDADES
-	    public $id, $matricula, $modelo, $color, $precio_venta, $precio_compra, $kms, $caballos, $fecha_venta, $estado, $any_matriculacion, $detalles, $imagen, $vendedor, $marca;
+	    public $id, $marca, $modelo, $matricula, $color, $precio_venta, $precio_compra, $kms, $caballos, $fecha_venta, $estado, $any_matriculacion, $detalles, $imagen, $vendedor;
 	    
 		//METODOS
 		//guarda el vehículo en la BDD
 		public function guardar(){
-			$consulta = "INSERT INTO vehiculos(matricula, modelo, color, precio_venta, precio_compra, kms, caballos, fecha_venta, estado, any_matriculacio, detalles, imagen, vendedor, marca)
-			     VALUES ('$this->matricula','$this->modelo','$this->color','$this->precio_venta', 
-                        '$this->precio_compra', '$this->kms', '$this->caballos', '$this->fecha_venta', '$this->estado', '$this->any_matriculacion', '$this->detalles', '$this->imagen', '$this->vendedor'; '$this->marca');";
+			$consulta = "INSERT INTO vehiculos(marca, modelo, matricula, color, precio_venta, precio_compra, kms, caballos, fecha_venta, estado, any_matriculacio, detalles, imagen, vendedor)
+			     VALUES ('$this->marca','$this->modelo','$this->matricula','$this->color','$this->precio_venta', 
+                        '$this->precio_compra', '$this->kms', '$this->caballos', '$this->fecha_venta', '$this->estado', 
+                        '$this->any_matriculacion', '$this->detalles', '$this->imagen', '$this->vendedor');";
 				
 			return Database::get()->query($consulta);
 		}
@@ -17,8 +18,9 @@
 		//actualiza los datos del vehiculo en la BDD
 		public function actualizar(){
 		    $consulta = "UPDATE vehiculos
-							  SET matricula='$this->matricula',
-							  		modelo='$this->modelo',
+							  SET marca='$this->marca',
+                                    modelo='$this->modelo',
+                                    matricula='$this->matricula',
 							  		color='$this->color',
 							  		precio_venta='$this->precio_venta',
                                     precio_compra='$this->precio_compra',
@@ -29,8 +31,8 @@
                                     any_matriculacion='$this->any_matriculacion',
                                     detalles='$this->detalles',
                                     imagen='$this->imagen',
-                                    vendedor='$this->vendedor',
-                                    marca='$this->marca'
+                                    vendedor='$this->vendedor'
+                                    
 							  WHERE id='$this->id';";
 		    return Database::get()->query($consulta);
 		}

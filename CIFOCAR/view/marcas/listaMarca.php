@@ -38,11 +38,15 @@
             <table>
                 <tr>
                     <th>Marca</th>
+                    <th colspan="2">Acciones</th>
                </tr>
                 <?php
                 foreach($marcas as $marca){
                     echo "<tr>";
                         echo "<td>$marca->marca</td>";
+                        echo "<td class='foto'><a href='index.php?controlador=Marca&operacion=editar&parametro=$marca->id'><img class='boton' src='images/buttons/edit.png' alt='modificar marca' title='modificar marca'/></a></td>";
+                        echo "<td class='foto'><a href='index.php?controlador=Marca&operacion=borrar&parametro=$marca->id'><img class='boton' src='images/buttons/delete.png' alt='eliminar marca' title='eliminar marca'/></a></td>";
+                        
                     echo "</tr>";
                 }
                 ?>

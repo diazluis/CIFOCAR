@@ -46,10 +46,21 @@
 				<input type="text" name="caballos" required="required" /><br/>
 				
 				<label>Fecha de venta:</label>
-				<input type="text" name="fecha_venta" required="required" /><br/>
+				<input type="date" name="fecha_venta" required="required" /><br/>
+				
+				<label>Estado:</label>
+				<input type="text" name="estado" required="required" /><br/>
+				
+				<label>Antigüedad:</label>
+				<input type="date" name="any_matriculacion"><br>
 							
 				<label>Detalles:</label>
 				<input type="text" name="detalles" required="required" /><br/>
+				
+				<!--  AÑADIR IMAGEN. Añadir un input “file” al formulario de “nueva guitarra”-->
+
+                <label>Imagen:</label>
+                <input type="file" name="imagen" accept="image/* required=”required”" /><br>
 						
 				<label>Vendedor:</label>
 				<input type="text" name="vendedor" required="required" /><br/>

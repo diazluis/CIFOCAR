@@ -39,30 +39,25 @@
         }
         
         //actualizar marca
-        public static function actualizar($new, $old){
-            //preparar consulta
-            $consulta = "UPDATE marcas 
-                         SET marca='$new'
-                         WHERE marca='$old';";
-            //ejecutar consulta
-            Database::get()->query($consulta);
-            
-            //retornar número de filas afectadas
-            return Database::get()->affected_rows;
+        public function actualizar(){
+            $consulta = "UPDATE marcas
+							  SET marca='$this->marca',
+    					  WHERE id=$this->id;";
+            return Database::get()->query($consulta);
         }
         
         //borrar marca
-        public static function borrar($marca){
+        public static function borrar($id){
             //preparar consulta
             $consulta = "DELETE FROM marcas
-                         WHERE marca='$marca';";
+                         WHERE id='$id';";
             
-            //ejecutar consulta
-            Database::get()->query($consulta);
-            
-            //retornar número de filas afectadas
-            return Database::get()->affected_rows;
-        }  
+            $conexion = Database::get(); //conecta
+            $conexion->query($consulta); //ejecuta consulta
+            return $conexion->affected_rows; //devuelve el num de filas afectadas
+        }
+        
+        
         //m�todo que me recupera el total de registros (incluso con filtros)
         public static function getTotal($t='', $c='marca'){
             $consulta = "SELECT * FROM marcas
@@ -74,6 +69,29 @@
             $resultados->free();
             return $total;
         }
+        
+        public static function getMarca($id=0){
+            //preparar consulta
+            $consulta = "SELECT * FROM marcas WHERE id=$id;";
+            
+            //ejecutar consulta
+            $conexion = Database::get();
+            $resultado = $conexion->query($consulta);
+            
+            //si no había resultados, retornamos NULL
+            if(!$resultado) return null;
+            
+            //convertir el resultado en un objeto MarcaModel
+            $marca = $resultado->fetch_object('MarcaModel');
+            
+            //liberar memoria
+            $resultado->free();
+            
+            //devolver el resultado
+            return $marca;
+        }
+        
+        
         
         
        

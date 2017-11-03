@@ -21,11 +21,12 @@
 			    $this->load('model/VehiculoModel.php');
 				$u = new VehiculoModel();
 				$conexion = Database::get();
-				
+								
 				//tomar los datos que vienen por POST
 				//real_escape_string evita las SQL Injections
-				$u->matricula = $conexion->real_escape_string($_POST['matricula']);
+				$u->marca = $conexion->real_escape_string($_POST['marca']);
 				$u->modelo = $conexion->real_escape_string($_POST['modelo']);
+				$u->matricula = $conexion->real_escape_string($_POST['matricula']);
 				$u->color = $conexion->real_escape_string($_POST['color']);
 				$u->precio_venta = $conexion->real_escape_string($_POST['precio_venta']);
 				$u->precio_compra = $conexion->real_escape_string($_POST['precio_compra']);
@@ -37,13 +38,13 @@
 				$u->detalles = $conexion->real_escape_string($_POST['detalles']);	
 				$u->imagen = Config::get()->default_user_image;
 				$u->vendedor = $conexion->real_escape_string($_POST['vendedor']);
-				$u->marca = $conexion->real_escape_string($_POST['marca']);
+				
 				
 				
 								
 				//guardar el vehiculo en BDD
 				if(!$u->guardar())
-					throw new Exception('No se pudo registrar la vehiculo');
+					throw new Exception('No se pudo registrar el vehiculo');
 				
 				//mostrar la vista de éxito
 				$datos = array();

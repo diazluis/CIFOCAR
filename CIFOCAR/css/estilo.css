@@ -52,7 +52,8 @@ html{
 }
 
 body{
-	background-color: #fff;
+	background-color: #aaf;
+	
 	font-family: arial, verdana;
 	width: 80%;
 	padding: 2%;
@@ -63,8 +64,12 @@ body{
 
 /* HEADER */
 header{
-	padding: 20px;
-	background-color: #eef;
+	background-image: url("/CIFOCAR/CIFOCAR/images/banner.jpg");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: right;
+	padding: 120px;
+	
 	color: white;
 	text-shadow: 1px 1px 3px #99a;
 }
@@ -89,12 +94,14 @@ header figure img{
 }
 
 header hgroup{
-	flex: 5;
-}
+	flex: 1;
+	}
 
 
 /* ZONAS DE LOGIN Y LOGOUT */
 #login, #logout{
+	font-weight: bold;
+	color: white;
 	text-align: right;
 	padding: 5px 0px 5px 0px;
 }
@@ -115,7 +122,7 @@ header hgroup{
 }
 
 #login a, #logout a{
-	color: #aaf;	
+	color: #fff;	
 	font-weight: bold;
 }
 
@@ -153,6 +160,9 @@ nav ul.menu>li:hover{
 
 /* AREA PARA EL CONTENIDO */
 #content{
+	background-color: #aaf;
+	opacity:1;
+	color: black;
 	padding: 20px 0px 20px 0px;
 }
 
