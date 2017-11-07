@@ -56,20 +56,23 @@
             
             <table>
                 <tr>
-                	<th></th>
-                    <th>Marca</th>
+                	<th>Imagen</th>
+                	<th>Marca</th>
                     <th>Modelo</th>
                     <th>Año</th>
-                    <th>Operaciones</th>
+                    <th colspan="3">Operaciones</th>
                 </tr>
                 <?php
                 foreach($vehiculos as $vehiculo){
                     echo "<tr>";
-                        echo "<td class='foto'><img class='miniatura' src='$vehiculo->imagen' alt='Imagen de $vehiculo->marca' title='Imagen de $vehiculo->marca'/></td>";
+                        echo "<td class='foto'><img class='miniatura' src='$vehiculo->imagen' alt='Imagen de $vehiculo->marca' title='Imagen de $->marca'/></td>";
                         echo "<td>$vehiculo->marca</td>";
                         echo "<td>$vehiculo->modelo</td>";
-                        echo "<td>$vehiculo->any_matriculacion</td>";
-                        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=ver&parametro=$vehiculo->id'><img class='boton' src='images/buttons/view.png' alt='ver detalles' title='ver detalles'/></a></td>";
+                        echo "<td>$vehiculo->color</td>";
+                        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=ver&parametro=$->id'><img class='boton' src='images/buttons/view.png' alt='ver detalles' title='ver detalles'/></a></td>";
+                        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=editar&parametro=$vehiculo->id'><img class='boton' src='images/buttons/edit.png' alt='editar vehiculo' title='editar vehiculo'/></a></td>";
+                        echo "<td class='foto'><a href='index.php?controlador=Vehiculo&operacion=borrar&parametro=$vehiculo->id'><img class='boton' src='images/buttons/delete.png' alt='ver detalles' title='ver detalles'/></a></td>";
+                        
                     echo "</tr>";
                 }
                 ?>

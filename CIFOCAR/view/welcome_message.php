@@ -13,14 +13,18 @@
 		<?php 
 			Template::header(); //pone el header
 
-			if(!$usuario) Template::login(); //pone el formulario de login
-			else Template::logout($usuario); //pone el formulario de logout
-			
 			Template::menu($usuario); //pone el menú
 		?>
 
 		<section id="content">
-			
+		Bienvenido a la aplicación web de CIFOCAR.<br>
+		<br>
+		
+		Para comenzar a operar primero debes loguearte, lo que te dará acceso a todas las funciones permitidas para tu nivel de usuario:<br><br>
+		<?php if(!$usuario) Template::loginInicio(); //pone el formulario de login
+		          else Template::logoutInicio($usuario); //pone el formulario de logout	
+		?>
+		
 		</section>
 		
 		<?php Template::footer();?>

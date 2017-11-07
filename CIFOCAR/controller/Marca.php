@@ -104,45 +104,44 @@
 		    if(!Login::isAdmin())
 		        throw new Exception('Debes ser admin');
 		        
-		        //comprobar que me llega un id
-		        if(!$id)
-		            throw new Exception('No se indicó la id de la marca');
-		            
-		            //recuperar la marca con esa id
-		            $this->load('model/MarcaModel.php');
-		            $marca = MarcaModel::getMarca($id);
-		            
-		            //comprobar que existe la marca
-		            if(!$marca)
-		                throw new Exception('No existe la marca');
-		                
-		                //si no me están enviando el formulario
-		                if(empty($_POST['modificar'])){
-		                    //poner el formulario
-		                    $datos = array();
-		                    $datos['usuario'] = Login::getUsuario();
-		                    $datos['marca'] = $marca;
-		                    $this->load_view('view/marcas/modificar.php', $datos);
-		                    
-		                }else{
-		                    //en caso contrario
-		                    $conexion = Database::get();
-		                    //actualizar los campos de la marca con los datos POST
-		                    $marca->marca = $conexion->real_escape_string($_POST['marca']);
-		                    
-		                    
-		                    
-		                    //modificar la marca en la BDD
-		                    if(!$marca->actualizar())
-		                        throw new Exception('No se pudo actualizar');
-		                        
-		                        //cargar la vista de éxito
-		                        $datos = array();
-		                        $datos['usuario'] = Login::getUsuario();
-		                        $datos['mensaje'] = "Datos de la marca <a href='index.php?controlador=marca&operacion=editar&parametro=$marca->id'><b>'$marca->marca $marca->modelo'</b></a> actualizados correctamente.";
-		                        
-		                        $this->load_view('view/exito.php', $datos);
-		                }
+	        //comprobar que me llega un id
+	        if(!$id)
+	            throw new Exception('No se indicó la marca');
+	            
+            //recuperar la marca con esa id
+            $this->load('model/MarcaModel.php');
+            $marca = MarcaModel::getMarca($id);
+            
+            //comprobar que existe la marca
+            if(!$marca)
+                throw new Exception('No existe la marca');
+                
+            //si no me están enviando el formulario
+            if(empty($_POST['actualizar'])){
+                //poner el formulario
+                $datos = array();
+                $datos['usuario'] = Login::getUsuario();
+                $datos['marca'] = $marca;
+                $this->load_view('view/marcas/modificar.php', $datos);
+                
+            }else{
+                //en caso contrario
+                $conexion = Database::get();
+                //actualizar los campos de la marca con los datos POST
+                $marca->marca = $conexion->real_escape_string($_POST['marca']);
+                	                    
+                
+                //modificar la marca en la BDD
+                if(!$marca->actualizar())
+                    throw new Exception('No se pudo actualizar');
+                    
+                //cargar la vista de éxito
+                $datos = array();
+                $datos['usuario'] = Login::getUsuario();
+                $datos['mensaje'] = "Datos de la marca actualizados correctamente.";
+                
+                $this->load_view('view/exito.php', $datos);
+            }
 		}
 		
 		
@@ -179,12 +178,12 @@
 		                if(!MarcaModel::borrar($id))
 		                    throw new Exception('No se pudo borrar, es posible que se haya borrado ya.');
 		                    
-		                    //cargar la vista de éxito
-		                    $datos = array();
-		                    
-		                    $datos['mensaje'] = 'Operación de borrado ejecutada con éxito.';
-		                    $datos['usuario'] = Login::getUsuario();
-		                    $this->load_view('view/exito.php', $datos);
+	                    //cargar la vista de éxito
+	                    $datos = array();
+	                    
+	                    $datos['mensaje'] = 'Operación de borrado ejecutada con éxito.';
+	                    $datos['usuario'] = Login::getUsuario();
+	                    $this->load_view('view/exito.php', $datos);
 		                    
 		            }
 		}

@@ -24,26 +24,24 @@
 								
 				//tomar los datos que vienen por POST
 				//real_escape_string evita las SQL Injections
-				$u->marca = $conexion->real_escape_string($_POST['marca']);
+				$u->vehiculo = $conexion->real_escape_string($_POST['vehiculo']);
 				$u->modelo = $conexion->real_escape_string($_POST['modelo']);
-				$u->matricula = $conexion->real_escape_string($_POST['matricula']);
 				$u->color = $conexion->real_escape_string($_POST['color']);
-				$u->precio_venta = $conexion->real_escape_string($_POST['precio_venta']);
-				$u->precio_compra = $conexion->real_escape_string($_POST['precio_compra']);
-				$u->kms = $conexion->real_escape_string($_POST['kms']);
-				$u->caballos = $conexion->real_escape_string($_POST['caballos']);
-				$u->fecha_venta = $conexion->real_escape_string($_POST['fecha_venta']);
-				$u->estado = $conexion->real_escape_string($_POST['estado']);
-				$u->any_matriculacion = $conexion->real_escape_string($_POST['any_matriculacion']);
-				$u->detalles = $conexion->real_escape_string($_POST['detalles']);	
 				$u->imagen = Config::get()->default_user_image;
-				$u->vendedor = $conexion->real_escape_string($_POST['vendedor']);
 				
+				//Subir imagen
+				$fichero = $_FILES['imagen']; //fichero
+				$destino = 'images/coches/'; //ruta de destino en el servidor
+				$tam_maximo = 10000000; //10MB aprox
+				$renombrar = true; //cambia el nombre del fichero original para evitar sobreescrituras
 				
+				$upload = new Upload($fichero, $destino, $tam_maximo, $renombrar);
+				$vehiculo->imagen = $upload->upload_image();
 				
 								
 				//guardar el vehiculo en BDD
 				if(!$u->guardar())
+				    
 					throw new Exception('No se pudo registrar el vehiculo');
 				
 				//mostrar la vista de éxito
@@ -115,76 +113,50 @@
 		                $this->load_view('view/vehiculos/listaVehiculo.php', $datos);
 		}
 		
-		//PROCEDIMIENTO PARA MODIFICAR UN Vehiculo
-		public function modificacion(){
-			//si no hay vehiculo identificado... error
-			if(!Login::getVehiculo())
-				throw new Exception('Debes estar identificado para poder modificar tus datos');
-				
-			//si no llegan los datos a modificar
-			if(empty($_POST['modificar'])){
-				
-				//mostramos la vista del formulario
-				$datos = array();
-				$datos[''] = Login::getVehiculo();
-				$datos['max_image_size'] = Config::get()->user_image_max_size;
-				$this->load_view('view/s/modificacion.php', $datos);
-					
-				//si llegan los datos por POST
-			}else{
-				//recuperar los datos actuales del Vehiculo
-				$u = Login::getVehiculo();
-				$conexion = Database::get();
-				
-				//comprueba que el vehiculo se valide correctamente
-				$p = MD5($conexion->real_escape_string($_POST['password']));
-				if($u->password != $p)
-					throw new Exception('El password no coincide, no se puede procesar la modificación');
-								
-				//recupera el nuevo password (si se desea cambiar)
-				if(!empty($_POST['newpassword']))
-					$u->password = MD5($conexion->real_escape_string($_POST['newpassword']));
-				
-				//recupera el nuevo nombre y el nuevo email
-				$u->nombre = $conexion->real_escape_string($_POST['nombre']);
-				$u->email = $conexion->real_escape_string($_POST['email']);
-						
-				//TRATAMIENTO DE LA NUEVA IMAGEN DE PERFIL (si se indicó)
-				if($_FILES['imagen']['error']!=4){
-					//el directorio y el tam_maximo se configuran en el fichero config.php
-					$dir = Config::get()->user_image_directory;
-					$tam = Config::get()->user_image_max_size;
-					
-					//prepara la carga de nueva imagen
-					$upload = new Upload($_FILES['imagen'], $dir, $tam);
-					
-					//guarda la imagen antigua en una var para borrarla 
-					//después si todo ha funcionado correctamente
-					$old_img = $u->imagen;
-					
-					//sube la nueva imagen
-					$u->imagen = $upload->upload_image();
-				}
-				
-				//modificar el vehiculo en BDD
-				if(!$u->actualizar())
-					throw new Exception('No se pudo modificar');
-		
-				//borrado de la imagen antigua (si se cambió)
-				//hay que evitar que se borre la imagen por defecto
-				if(!empty($old_img) && $old_img!= Config::get()->default_user_image)
-					@unlink($old_img);
-						
-				//hace de nuevo "login" para actualizar los datos del vehiculo
-				//desde la BDD a la variable de sesión.
-				Login::log_in($u->user, $u->password);
-					
-				//mostrar la vista de éxito
-				$datos = array();
-				$datos['vehiculo'] = Login::getVehiculo();
-				$datos['mensaje'] = 'Modificación OK';
-				$this->load_view('view/exito.php', $datos);
-			}
+		//PROCEDIMIENTO PARA MODIFICAR UNA VEHICULO
+		public function editar($id=0){
+		    //comprobar que el usuario es admin
+		    if(!Login::isAdmin())
+		        throw new Exception('Debes ser admin');
+		        
+		        //comprobar que me llega un id
+		        if(!$id)
+		            throw new Exception('No se indicó la vehiculo');
+		            
+		            //recuperar la vehiculo con esa id
+		            $this->load('model/VehiculoModel.php');
+		            $vehiculo = VehiculoModel::getVehiculo($id);
+		            
+		            //comprobar que existe la vehiculo
+		            if(!$vehiculo)
+		                throw new Exception('No existe el vehiculo');
+		                
+		                //si no me están enviando el formulario
+		                if(empty($_POST['actualizar'])){
+		                    //poner el formulario
+		                    $datos = array();
+		                    $datos['usuario'] = Login::getUsuario();
+		                    $datos['vehiculo'] = $vehiculo;
+		                    $this->load_view('view/vehiculos/modificarVehiculo.php', $datos);
+		                    
+		                }else{
+		                    //en caso contrario
+		                    $conexion = Database::get();
+		                    //actualizar los campos de la vehiculo con los datos POST
+		                    $vehiculo->marca = $conexion->real_escape_string($_POST['marca']);
+		                    $vehiculo->modelo = $conexion->real_escape_string($_POST['modelo']);
+		                    $vehiculo->color = $conexion->real_escape_string($_POST['color']);
+		                    //modificar la vehiculo en la BDD
+		                    if(!$vehiculo->actualizar())
+		                        throw new Exception('No se pudo actualizar');
+		                        
+		                        //cargar la vista de éxito
+		                        $datos = array();
+		                        $datos['usuario'] = Login::getUsuario();
+		                        $datos['mensaje'] = "Datos de la vehiculo actualizados correctamente.";
+		                        
+		                        $this->load_view('view/exito.php', $datos);
+		                }
 		}
 		
 		

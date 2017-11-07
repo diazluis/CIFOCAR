@@ -19,54 +19,21 @@
 		?>
 		
 		<section id="content">
-			<h2>Nuevo vehículo:</h2>
+			<h2>Nueva marca:</h2>
 			<form method="post" enctype="multipart/form-data" autocomplete="off">
-				<label>Marca:</label>
-				<input type="text" name="marca" required="required" /><br/>                
-				
-				<label>Modelo:</label>
-				<input type="text" name="modelo" required="required" /><br/>
-				
-				<label>Matrícula:</label>
-				<input type="text" name="matricula" required="required" /><br/>
-				
-				<label>Color:</label>
-				<input type="text" name="color" required="required" /><br/>
-				
-				<label>Precio de venta:</label>
-				<input type="text" name="precio_venta" required="required" /><br/>
-				
-				<label>Precio de compra:</label>
-				<input type="text" name="precio_compra" required="required" /><br/>
-				
-				<label>Kilómetros:</label>
-				<input type="text" name="kms" required="required" /><br/>
-				
-				<label>Potencia:</label>
-				<input type="text" name="caballos" required="required" /><br/>
-				
-				<label>Fecha de venta:</label>
-				<input type="date" name="fecha_venta" required="required" /><br/>
-				
-				<label>Estado:</label>
-				<input type="text" name="estado" required="required" /><br/>
-				
-				<label>Antigüedad:</label>
-				<input type="date" name="any_matriculacion"><br>
-							
-				<label>Detalles:</label>
-				<input type="text" name="detalles" required="required" /><br/>
-				
 				<!--  AÑADIR IMAGEN. Añadir un input “file” al formulario de “nueva guitarra”-->
 
                 <label>Imagen:</label>
                 <input type="file" name="imagen" accept="image/* required=”required”" /><br>
-						
-				<label>Vendedor:</label>
-				<input type="text" name="vendedor" required="required" /><br/>
+                
+				<label>Marca:</label>
+				<input type="text" name="marca" required="required" /><br/>
+				<label>Modelo:</label>
+				<input type="text" name="modelo" required="required" /><br/>
+				<label>Color:</label>
+				<input type="text" name="color" required="required" /><br/>
 				
-				<!-- El formulario se debe enviar por POST y contener el atributo �enctype� con el valor �multipart/form-data� -->
-                			
+				                			
 				<input type="submit" name="guardar" value="guardar"/><br/>
 			</form>
 		</section>

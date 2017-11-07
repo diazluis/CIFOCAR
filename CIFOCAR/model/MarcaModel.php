@@ -41,17 +41,18 @@
         //actualizar marca
         public function actualizar(){
             $consulta = "UPDATE marcas
-							  SET marca='$this->marca',
+							  SET marca='$this->marca'
     					  WHERE id=$this->id;";
             return Database::get()->query($consulta);
         }
         
-        //borrar marca
+        //Método que borra una marca de la BDD (estático)
+        //PROTOTIPO: public static boolean borrar(int $id)
         public static function borrar($id){
-            //preparar consulta
             $consulta = "DELETE FROM marcas
-                         WHERE id='$id';";
+                         WHERE id=$id;";
             
+            echo $consulta; 
             $conexion = Database::get(); //conecta
             $conexion->query($consulta); //ejecuta consulta
             return $conexion->affected_rows; //devuelve el num de filas afectadas

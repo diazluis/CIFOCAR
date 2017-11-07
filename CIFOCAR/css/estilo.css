@@ -102,7 +102,7 @@ header hgroup{
 #login, #logout{
 	font-weight: bold;
 	color: white;
-	text-align: right;
+	text-align: left;
 	padding: 5px 0px 5px 0px;
 }
 
@@ -183,6 +183,7 @@ nav ul.menu>li:hover{
 }
 #content table td, #content table th{
 	padding: 10px;
+	image-size: 50%;
 }
 #content table tr:nth-of-type(even){
 	background-color: #eef;
@@ -195,6 +196,11 @@ nav ul.menu>li:hover{
 #content form label{
 	display: inline-block;
 	min-width: 140px;
+}
+
+#content table img{
+	height: 100px;
+	width: 100px;
 }
 
 #content form img.imagenactual{

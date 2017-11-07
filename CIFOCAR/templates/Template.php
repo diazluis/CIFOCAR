@@ -14,7 +14,16 @@ class Template{
 		<?php }
 		
 		
-		//PONE EL FORMULARIO DE LOGIN
+		//PONE EL FORMULARIO DE LOGIN DE INICIO
+		public static function loginInicio(){?>
+			<form method="post" id="login" autocomplete="off">
+				<label>User:</label><input type="text" name="user" required="required" /><br>
+				<label>Password:</label><input type="password" name="password" required="required"/><br>
+				<input type="submit" name="login" value="Login" />
+			</form>
+		<?php }
+		
+		//PONE EL FORMULARIO DE LOGIN 
 		public static function login(){?>
 			<form method="post" id="login" autocomplete="off">
 				<label>User:</label><input type="text" name="user" required="required" />
@@ -34,6 +43,26 @@ class Template{
 						<?php echo ' ('.$usuario->email.')';?>
 					</span>
 					<?php if($usuario->admin) echo ', eres administrador';?>
+				</span>
+								
+				<form method="post">
+					<input type="submit" name="logout" value="Logout" />
+				</form>
+				
+				<div class="clear"></div>
+			</div>
+		<?php }
+		
+		//PONE LA INFO DEL USUARIO IDENTIFICADO Y EL FORMULARIOD E LOGOUT
+		public static function logoutInicio($usuario){	?>
+			<div id="logout">
+				<span>
+					<a href="index.php?controlador=Usuario&operacion=modificacion" title="modificar datos">
+						<?php if(!$usuario->admin) echo 'Ya estás logueado como '.$usuario->nombre;?></a>
+					<span class="mini">
+						<?php echo ' ('.$usuario->email.')';?>
+					</span>
+					<?php if($usuario->admin) echo ', ya estás logueado y eres administrador';?>
 				</span>
 								
 				<form method="post">
